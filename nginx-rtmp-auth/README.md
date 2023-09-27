@@ -22,7 +22,7 @@ rtmp streams.
 
 ## How do I use this in docker?
 
-Run this image (TODO: not connected to dockerhub yet)
+Run this image:
 ```bash
 $ docker run --rm -d -p 5000:5000 ghcr.io/numberoverzero/nginx-rtmp-auth
 9840a2d81b2f7b9dd5fd9d60cbe890f37655a839518b1ed91c497bdf020281a9
@@ -48,7 +48,7 @@ date: Mon, 01 Jan 1980 00:00:01 GMT
 
 There are a few environment variables:
 
-* `MA_ACCESS_KEY` (default: `""``) -- the access key that callers must provide.
+* `MA_ACCESS_KEY` (default: `""`) -- the access key that callers must provide.
   If this is empty or unset, a secure random value will be generated.
 * `MA_SOCKET` (default: `"0.0.0.0:5000"`) -- ip and port to bind to.
 * `MA_QUERYSTRING_KEY` (default: `"key"`) -- the query string param name
