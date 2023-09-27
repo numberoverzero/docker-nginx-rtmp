@@ -9,3 +9,14 @@ nanorand = { version= "0.7.0" }
 subtle = { version = "2.5" }
 tokio = { version = "1.19", features = ["macros", "rt-multi-thread", "signal"] }
 url = { version = "2.4.1" }
+
+[build]
+target = "x86_64-unknown-linux-musl"
+rustflags = ["-Zlocation-detail=none"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+panic = "abort"
+strip = true
