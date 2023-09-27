@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  server:
+    build:
+      dockerfile: Dockerfile.server
+    depends_on:
+      auth:
+        condition: service_started
+    ports:
+      - "0.0.0.0:1935:1935"
+  auth:
+    image: ghcr.io/numberoverzero/nginx-rtmp-auth
+    environment:
+      - MA_SOCKET=0.0.0.0:80
+    expose:
+      - "80"

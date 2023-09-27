@@ -1,0 +1,2 @@
+FROM ghcr.io/numberoverzero/nginx-rtmp-server
+COPY nginx.conf /etc/nginx/nginx.conf
