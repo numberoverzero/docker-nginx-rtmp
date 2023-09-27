@@ -199,17 +199,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f232d6ef707e1956a43342693d2a31e72989554d58299d7a88738cc95b0d35c"
 
 [[package]]
-name = "micro-rtmp-auth"
-version = "0.1.0"
-dependencies = [
- "hyper",
- "nanorand",
- "subtle",
- "tokio",
- "url",
-]
-
-[[package]]
 name = "miniz_oxide"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -234,6 +223,17 @@ name = "nanorand"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a51313c5820b0b02bd422f4b44776fbf47961755c74ce64afc73bfad10226c3"
+
+[[package]]
+name = "nginx-rtmp-auth"
+version = "0.1.0"
+dependencies = [
+ "hyper",
+ "nanorand",
+ "subtle",
+ "tokio",
+ "url",
+]
 
 [[package]]
 name = "num_cpus"

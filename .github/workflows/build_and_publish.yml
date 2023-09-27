@@ -4,6 +4,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish-nginx-rtmp-auth:
     runs-on: ubuntu-latest

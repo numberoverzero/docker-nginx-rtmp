@@ -1,4 +1,4 @@
-# micro-auth
+# nginx-rtmp-auth
 
 ## What is this
 
@@ -16,7 +16,7 @@ query string value against the known access key.
 It returns 204 on success, 403 on wrong access key, and 400 on missing access
 key.
 
-This is designed to be a drop-in auth mechanism for `micro-rtmp-nginx` when
+This is designed to be a drop-in auth mechanism for `nginx-rtmp-server` when
 you don't need anything more secure than a static key for publishing/playing
 rtmp streams.
 
@@ -24,7 +24,7 @@ rtmp streams.
 
 Run this image (TODO: not connected to dockerhub yet)
 ```bash
-$ docker run --rm -d -p 5000:5000 micro-rtmp-auth:1
+$ docker run --rm -d -p 5000:5000 ghcr.io/numberoverzero/nginx-rtmp-auth
 9840a2d81b2f7b9dd5fd9d60cbe890f37655a839518b1ed91c497bdf020281a9
 ```
 
@@ -61,7 +61,7 @@ generated access key and look for the query string param name `"secret"`:
 ```
 $ cargo build
 
-$ MA_QUERYSTRING_KEY="secret" ./target/debug/micro-auth
+$ MA_QUERYSTRING_KEY="secret" ./target/debug/nginx-rtmp-auth
 generating random access key (set your own with MA_ACCESS_KEY=)
 socket: 0.0.0.0:5000
 access_key: 1e0b81d5

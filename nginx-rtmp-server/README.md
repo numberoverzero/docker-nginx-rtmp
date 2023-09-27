@@ -1,4 +1,4 @@
-# micro-nginx
+# nginx-rtmp-server
 
 ## What is this
 
@@ -31,7 +31,7 @@ rtmp {
 
 Create a dockerfile that builds from this and copies in your conf:
 ```docker
-FROM micro-nginx
+FROM ghcr.io/numberoverzero/nginx-rtmp-server
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
