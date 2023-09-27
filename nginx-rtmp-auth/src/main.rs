@@ -7,6 +7,7 @@ use hyper::{
 use nanorand::{BufferedRng, ChaCha20, Rng};
 use std::{convert::Infallible, env, net::SocketAddr, sync::Arc};
 use subtle::ConstantTimeEq;
+use tokio::{signal::unix::SignalKind, task::JoinSet};
 use url;
 
 const ACCESS_KEY_ENV: &'static str = "MA_ACCESS_KEY";
@@ -37,7 +38,7 @@ macro_rules! expect {
 
 macro_rules! die {
     ( $arg: expr ) => {
-        println!("error: {}", $arg);
+        eprintln!("error: {}", $arg);
         std::process::exit(1);
     };
 }
@@ -58,14 +59,36 @@ async fn main() {
     println!("socket: {}", svc_cfg.listen_socket);
     println!("access_key: {}", svc_cfg.access_key);
     println!("querystring_key: {}", svc_cfg.qs_key);
-    match server.await {
+
+    match server.with_graceful_shutdown(register_signals()).await {
         Ok(_) => {
             println!("shutting down");
         }
         Err(e) => {
-            die!(format!("exception: {e}"));
+            die!(format!("server: {e}"));
         }
     }
+}
+
+async fn register_signals() {
+    /// The server will shut down when any of these signals is received
+    const EXIT_SIGNALS: &[SignalKind] = &[
+        SignalKind::terminate(),
+        SignalKind::interrupt(),
+        SignalKind::quit(),
+    ];
+    async fn register_signal(kind: SignalKind) {
+        tokio::signal::unix::signal(kind)
+            .expect(format!("expected to register signal handler {kind:?}").as_str())
+            .recv()
+            .await;
+    }
+    let mut signals = JoinSet::new();
+    for sig in EXIT_SIGNALS {
+        signals.spawn(register_signal(*sig));
+    }
+    // finish on first received
+    signals.join_next().await;
 }
 
 async fn handle(req: Request<Body>, cfg: &ServiceConfig) -> Result<Response<Body>, Infallible> {
