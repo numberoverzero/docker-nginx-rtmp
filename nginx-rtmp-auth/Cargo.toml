@@ -1,0 +1,11 @@
+[package]
+name = "micro-rtmp-auth"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hyper = { version = "0.14", features = ["http1", "server", "tcp"] }
+nanorand = { version= "0.7.0" }
+subtle = { version = "2.5" }
+tokio = { version = "1.19", features = ["macros", "rt-multi-thread"] }
+url = { version = "2.4.1" }
